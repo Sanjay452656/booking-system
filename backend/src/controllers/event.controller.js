@@ -44,3 +44,5 @@ async function getEventById(req,res){
         res.status(500).json({message:error.message})
     }
 }
+
+module.exports = {getEvents,getEventById,createEvent}
