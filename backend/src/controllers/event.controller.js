@@ -9,7 +9,7 @@ async function createEvent(req,res){
                 message:"Missing Required Fields"
             })
         }
-
+        
         const event = await Event.create({
             title,
             description,
