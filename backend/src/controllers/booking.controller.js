@@ -59,4 +59,34 @@ async function createBooking(req,res){
     }
 }
 
-module.exports = createBooking;
+async function confirmBooking(req,res){
+    try {
+        const {bookingId} = req.body;
+
+        const booking = await Booking.findById(bookingId);
+
+        if(!booking){
+            return res.status(404).json({
+                message:"Booking not found"
+            })
+        }
+
+        if(booking.status !== "PENDING"){
+            return res.status(400).json({
+                message:"Invalid state"
+            })
+        }
+
+        booking.status= "CONFIRMED";
+        await booking.save();
+
+        res.json({
+            message: "Booking Confirmed",
+            booking
+        })
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
+
+module.exports = {createBooking , confirmBooking};
