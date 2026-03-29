@@ -9,6 +9,6 @@ router.get('/',getEvents);
 router.get('/:id',getEventById);
 
 //protected + role-based
-router.post('/',protect,authorizeRoles("ORGANISER"),createEvent);
+router.post('/',protect,authorizeRoles("ORGANIZER"),createEvent);
 
 module.exports = router;

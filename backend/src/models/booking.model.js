@@ -19,6 +19,9 @@ const bookingSchema = new mongoose.Schema({
         type:String,
         enum:["PENDING","CONFIRMED"],
         default:"PENDING"
+    },
+    expiresAt:{
+        type:Date,
     }
 },{timestamps:true})
 

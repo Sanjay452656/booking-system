@@ -2,6 +2,7 @@ const Booking = require("../models/booking.model");
 const Event = require("../models/event.model");
 
 async function createBooking(req,res){
+
     try {
         const { eventId , quantity} = req.body;
 
@@ -10,6 +11,7 @@ async function createBooking(req,res){
                 message:"Missing Fields"
             })
         }
+
         // findOneAndUpdate(filter,Updates,options)
         const event = await Event.findOneAndUpdate(
         {
@@ -28,12 +30,24 @@ async function createBooking(req,res){
             })
         }
 
-        const booking = new Booking.create({
-            user : req.user.id,
-            event : eventId,
-            quantity,
-            status: "PENDING"
-        })
+        let booking;
+
+        try {
+            booking  = await Booking.create({
+                user: req.user.id,
+                event: eventId,
+                quantity,
+                status: "PENDING",
+                expiresAt: new Date(Date.now() + 5*60*1000) // 5 minutes from now
+            });
+        } catch (error) {
+            //  ROLLBACK seats if booking fails
+            await Event.findByIdAndUpdate(eventId,{
+                $inc : {availableSeats: quantity},
+            })
+            throw new Error("Booking creation failed");
+        }
+
 
         res.status(201).json({
             message:"Booking Created",
