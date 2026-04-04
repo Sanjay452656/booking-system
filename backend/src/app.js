@@ -9,7 +9,6 @@ const paymentRoutes = require('./routes/payment.route.js')
 
 const app=express();
 
-
 connectDB();
 
 app.use(express.json());

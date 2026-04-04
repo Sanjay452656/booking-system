@@ -4,6 +4,7 @@ const Event = require("../models/event.model");
 async function createBooking(req,res){
 
     try {
+        
         const { eventId , quantity} = req.body;
 
         if(!eventId || !quantity){

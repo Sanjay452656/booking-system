@@ -1,6 +1,7 @@
 const Event = require('../models/event.model.js')
 
 async function createEvent(req,res){
+    
     try {
         const {title,description,date,price,totalSeats} = req.body;
 
