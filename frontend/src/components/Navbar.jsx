@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
-
+  
   return (
     <div className="flex justify-between p-4 bg-gray-900 text-white">
       <Link to="/" className="font-bold">Eventify</Link>
