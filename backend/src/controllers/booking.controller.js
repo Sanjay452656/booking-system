@@ -72,6 +72,16 @@ async function confirmBooking(req,res){
             })
         }
 
+        // OWNERSHIP CHECK
+        // booking.user is a MongoDB ObjectId. We use .toString() to convert it
+        // to a plain string so we can compare it with req.user.id (a string from the JWT).
+        // Without .toString(), ObjectId !== string even if they represent the same value.
+        if(booking.user.toString() !== req.user.id){
+            return res.status(403).json({
+                message:"Forbidden: You can only manage your own bookings"
+            })
+        }
+
         if(booking.status !== "PENDING"){
             return res.status(400).json({
                 message:"Invalid state"
@@ -98,6 +108,13 @@ async function cancelBooking(req,res){
 
         if(!booking){
             return res.status(404).json({message:"Booking not found"})
+        }
+
+        // OWNERSHIP CHECK — same reasoning as in confirmBooking above
+        if(booking.user.toString() !== req.user.id){
+            return res.status(403).json({
+                message:"Forbidden: You can only manage your own bookings"
+            })
         }
 
         if(booking.status !== "PENDING"){
