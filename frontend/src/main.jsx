@@ -1,17 +1,16 @@
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { AuthProvider } from "./context/AuthContext";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Login from './pages/Login';
-import Signup from './pages/SignUp';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { ToastProvider } from './context/ToastContext';
+import App from './App';
+import './index.css';
 
 createRoot(document.getElementById('root')).render(
-   <AuthProvider>
-      <BrowserRouter>
-        <Navbar />
-        <Login/>
-        <Signup/>
-      </BrowserRouter>
-    </AuthProvider>,
-)
+    <AuthProvider>
+        <ToastProvider>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </ToastProvider>
+    </AuthProvider>
+);

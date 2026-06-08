@@ -1,6 +1,7 @@
 const Booking = require("../models/booking.model");
 const Event = require("../models/event.model");
 
+
 async function createBooking(req,res){
 
     try {
@@ -135,4 +136,20 @@ async function cancelBooking(req,res){
     }
 }
 
-module.exports = {createBooking , confirmBooking,cancelBooking};
+async function getMyBookings(req, res) {
+    try {
+        // Find all bookings belonging to the currently logged-in user.
+        // .populate('event', 'title date price') fetches the referenced Event document
+        // but only returns the fields: title, date, price (not all fields — efficient).
+        // .sort({ createdAt: -1 }) returns newest bookings first.
+        const bookings = await Booking.find({ user: req.user.id })
+            .populate('event', 'title date price totalSeats availableSeats')
+            .sort({ createdAt: -1 });
+
+        res.json(bookings);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+module.exports = { createBooking, confirmBooking, cancelBooking, getMyBookings };

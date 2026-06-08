@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Large arc: top-left -->
+  <path d="M 18 63 A 42 42 0 0 1 63 18" fill="none" stroke="#C9A227" stroke-width="9" stroke-linecap="round"/>
+  <!-- Small arc: top-right -->
+  <path d="M 61 25 A 20 20 0 0 1 75 39" fill="none" stroke="#C9A227" stroke-width="9" stroke-linecap="round"/>
+  <!-- Small arc: bottom-left -->
+  <path d="M 25 61 A 20 20 0 0 1 39 75" fill="none" stroke="#C9A227" stroke-width="9" stroke-linecap="round"/>
+  <!-- Large arc: bottom-right -->
+  <path d="M 37 82 A 42 42 0 0 1 82 37" fill="none" stroke="#C9A227" stroke-width="9" stroke-linecap="round"/>
+</svg>

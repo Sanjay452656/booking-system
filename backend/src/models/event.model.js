@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const CATEGORIES = ['Music', 'Technology', 'Sports', 'Arts', 'Food & Drink', 'Business', 'Education', 'Health', 'Other'];
+
 const eventSchema = new mongoose.Schema({
     title:{
         type:String,
@@ -7,7 +9,8 @@ const eventSchema = new mongoose.Schema({
         trim:true
     },
     description:{
-        type:String
+        type:String,
+        trim:true
     },
     date:{
         type:Date,
@@ -27,9 +30,24 @@ const eventSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
+    category:{
+        type:String,
+        enum: CATEGORIES,
+        default: 'Other'
+    },
+    location:{
+        type:String,
+        trim:true,
+        default: ''
+    },
     organiser:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
+    },
+    image:{
+        type:String,
+        trim:true,
+        default: ''
     }
 },{timestamps:true})
 
